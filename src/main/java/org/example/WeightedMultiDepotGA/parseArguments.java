@@ -4,7 +4,7 @@ import org.example.Data.InstancesClass;
 
 public class parseArguments {
     public static Configuration getConfiguration(InstancesClass instance, String[] args) {
-        int populationSize = 300;
+        int populationSize = 500;
         String selectionMethod = "T";
         double elitismRate = 0.1;
         int TSRate = 3;
@@ -13,7 +13,7 @@ public class parseArguments {
         String crossoverMethod = "BC";
         double crossRate =1.0;
         int time = 25920000;
-        int generations = 1000;
+        int generations = 600;
 //        String arg = "--popSize 300 --mutRate 0.05 --mutMethod S --crossRate 1.0 --crossMethod BS --selection RW --elitism 0.1 --numberOfElites 5 --LSRate 10 --TSRate 4 --instance src/main/java/org/example/Data/instance/200_1.json";
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
