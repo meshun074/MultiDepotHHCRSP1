@@ -27,7 +27,7 @@ public final class Main {
                     "Data", "Extended", "Validation");
 
     private static final Path DEFAULT_RESULTS_DIRECTORY =
-            Paths.get("results");
+            Paths.get("NewResults");
 
     /*
      * Matches names such as:
@@ -66,7 +66,7 @@ public final class Main {
 
         Path resultsDirectory = Paths.get(
                 System.getProperty(
-                        "results.dir",
+                        "NewResults.dir",
                         DEFAULT_RESULTS_DIRECTORY.toString()
                 )
         );
