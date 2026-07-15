@@ -69,11 +69,11 @@ public class EvaluationFunction {
             List<Double> routeTimeInformation = s.getCurrentTime();
             double routeCurrentTime = routeTimeInformation.get(routeTimeInformation.size() - 1);
             double overtime = Math.max(0, (routeCurrentTime - caregiverClosingTime));
-            if (routeCurrentTime > caregiverOpeningTime) {
+//            if (routeCurrentTime > caregiverOpeningTime) {
                 double highestIdleTime = s.getTotalWaitingTime().get(s.getTotalWaitingTime().size() - 1) + Math.max(0, (caregiverClosingTime - routeCurrentTime)) + s.getStartingWaitingTime();
                 s.setIdleTime(highestIdleTime);
                 ch.updateHighestIdleTime(highestIdleTime);
-            }
+//            }
             ch.updateTotalTravelCost(returnCost);
             ch.updateOvertime(overtime);
             s.updateTravelCost(returnCost);
@@ -370,14 +370,15 @@ public class EvaluationFunction {
                 List<Integer> route = genes[i];
                 if (!route.isEmpty()) {
                     int routeStartingPoint = allCaregivers[i].getDistance_matrix_index();
-                    int lastPatient = route.get(route.size()-1) + numOfDepartingPoints;
+                    int lastPatient = route.get(route.size() - 1) + numOfDepartingPoints;
                     double distance = distances[lastPatient][routeStartingPoint];
                     routesCurrentTime[i] += distance;
+                }
                     double caregiverClosingTime = allCaregivers[i].getWorking_shift()[1];
                     overtimeCost += Math.max(0, (routesCurrentTime[i] - caregiverClosingTime));
                     double routeIdleTime = TotalWaitingTime[i] + Math.max(0, (caregiverClosingTime - routesCurrentTime[i])) + startingWaitingTime[i];
                     highestIdleTime = Math.max(highestIdleTime, routeIdleTime);
-                }
+//                }
             }
 
             ch.setHighestTardiness(highestAndTotalTardiness[0]);
