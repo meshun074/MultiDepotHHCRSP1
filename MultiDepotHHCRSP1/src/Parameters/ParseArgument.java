@@ -4,7 +4,7 @@ public class ParseArgument {
     public static Parameters getConfiguration(String[] args) {
         String instance = "";
         int numberOfGeneration = 1000;
-        int populationSize = 500;
+        int populationSize = 600;
         String selectionMethod = "T";
         double elitismRate = 0.1;
         int TSRate = 3;
