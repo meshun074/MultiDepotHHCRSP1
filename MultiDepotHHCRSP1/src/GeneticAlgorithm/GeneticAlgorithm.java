@@ -33,6 +33,7 @@ public class GeneticAlgorithm {
     private final List<Chromosome> tempPopulation;
     private final List<Chromosome> tempMutPopulation;
     private List<Chromosome> newPopulation;
+    private final List<Chromosome> previousPopulation;
     private final List<Chromosome> crossoverChromosomes;
     private final List<Chromosome> mutationChromosomes;
     private final double[] popProbabilities;
@@ -76,6 +77,7 @@ public class GeneticAlgorithm {
         limit = Math.min(numOfEliteSearch, eliteRandomList.size());
         nextPopulation = new ArrayList<>(popSize);
         tempPopulation = new ArrayList<>(popSize);
+        previousPopulation = new ArrayList<>(popSize);
         tempMutPopulation = new ArrayList<>(mutSize);
         mutationChromosomes = Collections.synchronizedList(new ArrayList<>(mutSize));
         crossoverChromosomes = Collections.synchronizedList(new ArrayList<>(crossSize));
@@ -429,6 +431,8 @@ public class GeneticAlgorithm {
     }
 
     private void update() {
+        previousPopulation.clear();
+        previousPopulation.addAll(newPopulation);
         newPopulation.clear();
         newPopulation.addAll(nextPopulation);
         newPopulation.addAll(tempMutPopulation);
@@ -438,6 +442,17 @@ public class GeneticAlgorithm {
             if (newPopulation.size() < popSize) {
                 newPopulation.add(c);
             } else break;
+        }
+        for (Chromosome chromosome : previousPopulation) {
+            if (newPopulation.size() >= popSize) {
+                break;
+            }
+            newPopulation.add(chromosome);
+        }
+        if (newPopulation.size() != popSize) {
+            throw new IllegalStateException(
+                    "Population update produced " + newPopulation.size()
+                            + " chromosomes; expected " + popSize);
         }
     }
 }
