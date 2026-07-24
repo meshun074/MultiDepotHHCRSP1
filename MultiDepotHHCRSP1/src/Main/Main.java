@@ -62,16 +62,20 @@ public class Main {
                 String problemSize = matcher.find() ? matcher.group().substring(1) : "unknown";
 
                 // Create result directory safely
-                String resultDirName = "Pareto_MultiDepotHHCRSP_"
+                String resultDirName = "Extra_Pareto_MultiDepotHHCRSP_"
                         + fileName.substring(0, Math.min(20, fileName.length()))
                         + "_results";
 
                 Path resultDir = Paths.get("src/", resultDirName);
                 Files.createDirectories(resultDir);
 
+                // Parse GA parameters
+                Parameters parameters = ParseArgument.getConfiguration(args);
+
+
                 // Redirect output to result file
                 Path outputFile = resultDir.resolve(
-                        "Result_" + instancePrefix + "_" + runCount + "_" + randomSeed + ".txt"
+                        "Result_Cross_New_" + parameters.getCrossRate() + "_" + parameters.getMutRate() + "_" + instancePrefix + "_" + runCount + "_" + randomSeed + ".txt"
                 );
 
                 try (PrintStream fileOut = new PrintStream(outputFile.toFile())) {
@@ -85,8 +89,6 @@ public class Main {
                     // Read instance
                     instance = ReadData.read(jsonFile.toFile());
 
-                    // Parse GA parameters
-                    Parameters parameters = ParseArgument.getConfiguration(args);
 
                     // Run GA
                     GeneticAlgorithm ga = new GeneticAlgorithm(parameters, randomSeed, instance);
